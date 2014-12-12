@@ -94,6 +94,23 @@
   line-height: 1.3;
 }
 
+.footer {
+  font-family: Economica, Helvetica, Arial;
+  font-weight: bold;
+  text-align: left;
+  font-size: 10px;
+  color: #169A8D;
+}
+
+
+.btn-style {
+  float: right !important;
+}
+
+#titleimage {
+  content:url(images/minion.jpg);
+}
+
 .graph_max_circle {
     fill: red;
 }

@@ -5,12 +5,12 @@
             <span id="title">KnCMinion</span>
         </div>
         <div class="col-md-1 col-md-offset-8 noborder">
-            <img src="images/minion.jpg">
+            <div id="titleimage"></div>
         </div>
     </div>
     <div class="row">
         <div class="col-md-12 noborder">
-            <button data-ng-repeat="interval in intervals" data-ng-click="selectInterval(interval)" class="btn btn-xs btn-default" data-ng-class="{'btn-primary active': interval.time == selectedInterval}">{{interval.text}}</button>
+            <button data-ng-repeat="interval in intervals" data-ng-click="selectInterval(interval)" class="btn-interval btn btn-xs btn-default" data-ng-class="{'btn-primary active': interval.time == selectedInterval}">{{interval.text}}</button>
         </div>
     </div>
     <div class="row" data-ng-repeat="interval in intervals" data-ng-show="interval.time == selectedInterval">
@@ -23,8 +23,22 @@
             </table>
         </div>
         <div data-ng-repeat="die in dies track by die.PGA" class="col-md-3 nopadding">
-            <div class="die_id">{{ die.PGA }}</div>
-            <d3-graph class="die_hashrate_graph" value="die.MHS20s" counter="timestamp" duration="{{ interval.time }}" plotminmax plotcurrent interpolate="cardinal"></d3-graph>
+            <div class="die_info">
+                <div class="die_id">{{ die.PGA }}</div>
+                <d3-graph class="die_hashrate_graph" value="die.MHS20s" counter="timestamp" duration="{{ interval.time }}" plotminmax plotcurrent interpolate="cardinal"></d3-graph>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-1 noborder">
+            <div class="footer">
+                &copy; p4fg 2014
+            </div>
+        </div>
+        <div class="col-md-3 col-md-offset-8 noborder nopadding">
+            <div class="styleselector">
+                <button data-ng-repeat="style in styles" data-ng-click="selectStyle(style)" class="btn-style pull-right btn btn-xs btn-default" data-ng-class="{'btn-primary active': style == selectedStyle}">{{style}}</button>
+            </div>
         </div>
     </div>
 </div>

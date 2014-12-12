@@ -1,4 +1,4 @@
-@minionController = ['$scope','$timeout','$http', ($scope, $timeout, $http) ->
+@minionController = ['$scope','$rootScope','$timeout','$http', ($scope, $rootScope, $timeout, $http) ->
     
     setupValues = () ->
         $scope.dies = []
@@ -6,6 +6,10 @@
         $scope.hashratetimestamp = Date.now()
         $scope.intervals = [ { time: 60, text: "1m"}, { time: 600, text: "10m"}, { time: 3600, text: "1 hour"} ]
         $scope.selectedInterval = 600
+        
+        $scope.styles = [ "light", "dark" ]
+        $rootScope.selectedStyle = $scope.styles[0]
+
         $scope.metrics = []
         return
 
@@ -68,6 +72,9 @@
 
     $scope.selectInterval = (interval) ->
         $scope.selectedInterval = interval.time
+
+    $scope.selectStyle = (style) ->
+        $rootScope.selectedStyle = style
 
     setupValues()
     fetchStatus()
