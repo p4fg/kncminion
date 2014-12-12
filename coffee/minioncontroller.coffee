@@ -10,6 +10,13 @@
         $scope.styles = [ "light", "dark" ]
         $rootScope.selectedStyle = $scope.styles[0]
 
+        $scope.interpolations = [
+            { value: "cardinal", text: "spline" }
+            { value: "linear", text: "linear"} 
+            { value: "step-after", text: "step"} 
+        ]
+        $scope.selectedInterpolation = $scope.interpolations[0].value
+
         $scope.metrics = []
         return
 
@@ -75,6 +82,9 @@
 
     $scope.selectStyle = (style) ->
         $rootScope.selectedStyle = style
+
+    $scope.selectInterpolation = (interpolation) ->
+        $scope.selectedInterpolation = interpolation.value
 
     setupValues()
     fetchStatus()

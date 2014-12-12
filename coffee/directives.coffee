@@ -15,7 +15,8 @@ module.directive('d3Graph', ['$window', '$interval', '$timeout', ($window, $inte
             scope.maximum = parseFloat(attrs.maximum) || null
             scope.plotMinMax = attrs.plotminmax?
             scope.plotCurrent = attrs.plotcurrent?
-            interpolateType = attrs.interpolate || "cardinal"
+            
+            
 
             
 
@@ -25,6 +26,8 @@ module.directive('d3Graph', ['$window', '$interval', '$timeout', ($window, $inte
             scope.graphId = Math.floor(Math.random() * 10000000000000001).toString()
             
             scope.setupSize = () ->
+                interpolateType = attrs.interpolate || "cardinal"
+
                 scope.width = width = element[0].offsetWidth
                 scope.height = height = element[0].offsetHeight
 
@@ -70,11 +73,17 @@ module.directive('d3Graph', ['$window', '$interval', '$timeout', ($window, $inte
             window.onresize = () ->
                 scope.setupSize()
 
+            scope.$watch(()->
+                return attrs.interpolate
+            ,scope.setupSize
+            )
+
             scope.$watch(() ->
-                #return [angular.element($window)[0].innerWidth,angular.element(element)[0].offsetWidth,angular.element(element)[0].offsetHeight]
-                return [angular.element($window)[0].innerWidth,element.is(':visible') && scope.width == 0]
+                return [angular.element($window)[0].innerWidth,element.is(':visible') == true && scope.width == 0]
             ,scope.setupSize,true
             )
+
+
             
 
             scope.tick = () ->

@@ -15,7 +15,7 @@
     </div>
     <div class="row" data-ng-repeat="interval in intervals" data-ng-show="interval.time == selectedInterval">
         <div class="col-md-9 noborder">
-            <d3-graph class="hashrate_graph" value="hashrate" counter="hashratetimestamp" duration="{{ interval.time }}" plotminmax plotcurrent interpolate="cardinal"></d3-graph>        
+            <d3-graph class="hashrate_graph" value="hashrate" counter="hashratetimestamp" duration="{{ interval.time }}" plotminmax plotcurrent interpolate="{{ selectedInterpolation }}"></d3-graph>        
         </div>
         <div class="col-md-3 noborder">
             <table class="metricstable">
@@ -25,8 +25,13 @@
         <div data-ng-repeat="die in dies track by die.PGA" class="col-md-3 nopadding">
             <div class="die_info">
                 <div class="die_id">{{ die.PGA }}</div>
-                <d3-graph class="die_hashrate_graph" value="die.MHS20s" counter="timestamp" duration="{{ interval.time }}" plotminmax plotcurrent interpolate="cardinal"></d3-graph>
+                <d3-graph class="die_hashrate_graph" value="die.MHS20s" counter="timestamp" duration="{{ interval.time }}" plotminmax plotcurrent interpolate="{{ selectedInterpolation }}"></d3-graph>
             </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 col-md-offset-9 noborder nopadding">
+            
         </div>
     </div>
     <div class="row">
@@ -35,9 +40,15 @@
                 &copy; p4fg 2014
             </div>
         </div>
-        <div class="col-md-3 col-md-offset-8 noborder nopadding">
+        <div class="col-md-3 col-md-offset-7 noborder nopadding">
+            <div class="interpolationselector">
+                <button data-ng-repeat="interpolate in interpolations" data-ng-click="selectInterpolation(interpolate)" class="btn-style pull-right btn btn-xs btn-default" data-ng-class="{'btn-primary active': interpolate.value == selectedInterpolation}">{{ interpolate.text }}</button>
+            </div>
+        </div>
+        <div class="col-md-1 noborder nopadding">
+
             <div class="styleselector">
-                <button data-ng-repeat="style in styles" data-ng-click="selectStyle(style)" class="btn-style pull-right btn btn-xs btn-default" data-ng-class="{'btn-primary active': style == selectedStyle}">{{style}}</button>
+                <button data-ng-repeat="style in styles" data-ng-click="selectStyle(style)" class="btn-style pull-right btn btn-xs btn-default" data-ng-class="{'btn-primary active': style == selectedStyle}">{{ style }}</button>
             </div>
         </div>
     </div>
