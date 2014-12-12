@@ -24,6 +24,16 @@ module.directive('d3Graph', ['$window', '$interval', '$timeout', ($window, $inte
             
             scope.data = []
             scope.graphId = Math.floor(Math.random() * 10000000000000001).toString()
+
+            scope.updateData = () ->
+                if scope.value? and scope.counter != scope.lastValueUpdateCounter
+                    scope.data.push( { value: scope.value || 0, date: new Date() })
+                    scope.lastValueUpdateCounter = scope.counter
+                
+                # Remove all datapoints that are too old
+                limit = new Date(Date.now() - scope.duration * 1000 * 2)
+                while scope.data[0]?.date < limit
+                    scope.data.shift()
             
             scope.setupSize = () ->
                 interpolateType = attrs.interpolate || "cardinal"
@@ -36,6 +46,12 @@ module.directive('d3Graph', ['$window', '$interval', '$timeout', ($window, $inte
 
                 millisecondsPerPixel = (scope.duration * 1000) / (width-rightMargin)
                 scope.updatefrequency = Math.max(250, millisecondsPerPixel * 2)
+
+                if scope.updateDataPromise?
+                    # Clear old interval
+                    $interval.cancel(scope.updateDataPromise)
+
+                scope.updateDataPromise = $interval(scope.updateData,scope.updatefrequency)
 
                 scope.x = d3.time.scale().domain([new Date(Date.now() - scope.duration * 1000), new Date()]).range([0, width - rightMargin])
 
@@ -83,21 +99,9 @@ module.directive('d3Graph', ['$window', '$interval', '$timeout', ($window, $inte
             ,scope.setupSize,true
             )
 
-
-            
-
             scope.tick = () ->
                 scope.now = new Date()
                 
-                if scope.value? and scope.counter != scope.lastValueUpdateCounter
-                    scope.data.push( { value: scope.value || 0, date: new Date() })
-                    scope.lastValueUpdateCounter = scope.counter
-                
-                # Remove all datapoints that are too old
-                limit = new Date(Date.now() - scope.duration * 1000 * 2)
-                while scope.data[0]?.date < limit
-                    scope.data.shift()
-
                 # Set new domain for duration
                 scope.x.domain([new Date(Date.now() - scope.duration*1000),new Date()])                
 
