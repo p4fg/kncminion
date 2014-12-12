@@ -2,3 +2,11 @@ grunt*
 node.*
 node64.*
 node_modules
+firmwarebuild
+build
+bower
+bower.cmd
+bower_components
+npm
+npm.cmd
+*.js

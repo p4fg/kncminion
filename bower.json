@@ -1,0 +1,21 @@
+{
+  "name": "kncminion",
+  "version": "0.0.1",
+  "authors": [
+    "p4fg <p4fg@shellcode.se>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "d3": "~3.3.13",
+    "bootstrap": "~3.3.1",
+    "angular-route": "~1.3.4"
+  }
+}

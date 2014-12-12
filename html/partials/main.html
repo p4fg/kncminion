@@ -1,0 +1,32 @@
+ 
+<div class="container">
+    <div class="row">
+        <div class="col-md-3 noborder">
+            <span id="title">KnCMinion</span>
+        </div>
+        <div class="col-md-1 col-md-offset-8 noborder">
+            <img src="images/minion.jpg">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 noborder">
+            <button data-ng-repeat="interval in intervals" data-ng-click="selectInterval(interval)" class="btn btn-xs btn-default" data-ng-class="{'btn-primary active': interval.time == selectedInterval}">{{interval.text}}</button>
+        </div>
+    </div>
+    <div class="row" data-ng-repeat="interval in intervals" data-ng-show="interval.time == selectedInterval">
+        <div class="col-md-9 noborder">
+            <d3-graph class="hashrate_graph" value="hashrate" counter="hashratetimestamp" duration="{{ interval.time }}" plotminmax plotcurrent interpolate="cardinal"></d3-graph>        
+        </div>
+        <div class="col-md-3 noborder">
+            <table class="metricstable">
+                <tr data-ng-repeat="metric in metrics"><td class="metrictitle">{{ metric.title }}</td><td class="metricvalue">{{ metric.value }}</td></tr>
+            </table>
+        </div>
+        <div data-ng-repeat="die in dies track by die.PGA" class="col-md-3 nopadding">
+            <div class="die_id">{{ die.PGA }}</div>
+            <d3-graph class="die_hashrate_graph" value="die.MHS20s" counter="timestamp" duration="{{ interval.time }}" plotminmax plotcurrent interpolate="cardinal"></d3-graph>
+        </div>
+    </div>
+</div>
+
+ 
