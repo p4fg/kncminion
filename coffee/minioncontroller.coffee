@@ -73,7 +73,7 @@
             ['Device Hardware%', 'HW Errors:', '%']
             ['Elapsed','Uptime:','',toReadableDuration]
         ]
-        if data?
+        if data? and data.SUMMARY?
             for x in targets
                 if data.SUMMARY[0][x[0]]?
                     value = data.SUMMARY[0][x[0]]
