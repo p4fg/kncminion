@@ -66,3 +66,6 @@ To enter the simulated environment, navigate to http://127.0.0.1:8080/build/www/
 
 ## Credits
 Minion images from http://www.designbolts.com. Free for non-commercial use.
+
+## Disclaimer
+Use at your own risk, no warranty expressed or implied. Works-for-me(tm)
