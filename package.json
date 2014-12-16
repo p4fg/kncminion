@@ -1,6 +1,5 @@
 {
   "name": "KnCMinion",
-  "version": "0.0.1",
   "private": true,
   "description": "Drop-in complement to the titan web-interface",
   "main": "Gruntfile.js",
