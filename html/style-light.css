@@ -108,7 +108,8 @@
 }
 
 #titleimage {
-  content:url(images/minion.jpg);
+  height: 88px;
+  width: auto;
 }
 
 .graph_max_circle {

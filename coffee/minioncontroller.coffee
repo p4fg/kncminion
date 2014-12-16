@@ -1,5 +1,7 @@
-@minionController = ['$scope','$rootScope','$timeout','$http', ($scope, $rootScope, $timeout, $http) ->
+@minionController = ['$scope','$rootScope','$timeout','$interval', '$http', ($scope, $rootScope, $timeout, $interval, $http) ->
     
+    
+
     setupValues = () ->
         $scope.dies = []
         $scope.hashrate = undefined
@@ -22,9 +24,11 @@
 
     restartStatusTimer = () ->
         $timeout(fetchStatus,5000)
+        return
 
     restartSummaryTimer = () ->
         $timeout(fetchSummary,5000)
+        return
 
     updateStatus = (data) ->
         if data.DEVS?
@@ -86,10 +90,11 @@
 
     failStatus = () ->
         restartStatusTimer()
+        return
 
     failSummary = () ->
         restartSummaryTimer()
-
+        return
 
     fetchStatus = () ->
         url = '/cgi-bin/bfgminer_procs.cgi'
@@ -103,16 +108,30 @@
 
     $scope.selectInterval = (interval) ->
         $scope.selectedInterval = interval.time
+        return
 
     $scope.selectStyle = (style) ->
         $rootScope.selectedStyle = style
+        return
 
     $scope.selectInterpolation = (interpolation) ->
         $scope.selectedInterpolation = interpolation.value
+        return
+
+    selectRandomImage = () ->
+        imageCount = 22
+        i = Math.floor((Math.random()*imageCount)+1)
+        if i < 10
+            i = "0" + i
+        $scope.titleimage = "images/minion#{i}.png"
+        return
 
     setupValues()
     fetchStatus()
     fetchSummary()
+    selectRandomImage()
+
+    $interval(selectRandomImage,60000)
 
     return
 ]
