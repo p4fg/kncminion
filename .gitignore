@@ -1,4 +1,5 @@
-grunt*
+grunt
+grunt.cmd
 node.*
 node64.*
 node_modules
