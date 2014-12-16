@@ -50,8 +50,8 @@ module.directive('d3Graph', ['$window', '$interval', '$timeout', ($window, $inte
                 if scope.updateDataPromise?
                     # Clear old interval
                     $interval.cancel(scope.updateDataPromise)
-
                 scope.updateDataPromise = $interval(scope.updateData,scope.updatefrequency)
+                scope.updateData()
 
                 scope.x = d3.time.scale().domain([new Date(Date.now() - scope.duration * 1000), new Date()]).range([0, width - rightMargin])
 
@@ -95,7 +95,7 @@ module.directive('d3Graph', ['$window', '$interval', '$timeout', ($window, $inte
             )
 
             scope.$watch(() ->
-                return [angular.element($window)[0].innerWidth,element.is(':visible') == true && scope.width == 0]
+                return [angular.element($window)[0].innerWidth,element.is(':visible'),element[0].offsetWidth]
             ,scope.setupSize,true
             )
 
@@ -187,6 +187,7 @@ module.directive('d3Graph', ['$window', '$interval', '$timeout', ($window, $inte
                 doTransition(scope.path,true)
                 
             scope.tick()
+            scope.updateData()
           
     }
 ])

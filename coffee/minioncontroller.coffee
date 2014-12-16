@@ -43,6 +43,26 @@
         restartStatusTimer()
         return
 
+    toReadableDuration = (s) ->
+        sec_num = parseInt(s, 10)
+        days = Math.floor(sec_num / 86400)
+        hours   = Math.floor((sec_num - (days * 86400)) / 3600)
+        minutes = Math.floor((sec_num - (days * 86400) - (hours * 3600)) / 60)
+        seconds = sec_num - (days * 86400) - (hours * 3600) - (minutes * 60)
+
+        if hours < 10
+            hours   = "0" + hours
+        if (minutes < 10)
+            minutes = "0" + minutes
+        if (seconds < 10)
+            seconds = "0" + seconds
+        time = hours+':'+minutes+':'+seconds
+        if days == 1
+            time = days + " day " + time
+        if days > 1
+            time = days + " days " + time
+        return time
+
     updateSummary = (data) ->
         $scope.metrics = []
         targets = [
@@ -51,11 +71,15 @@
             ['Pool Rejected%','Pool rejected:','%']
             ['Pool Stale%','Pool stale:','%']
             ['Device Hardware%', 'HW Errors:', '%']
+            ['Elapsed','Uptime:','',toReadableDuration]
         ]
         if data?
             for x in targets
                 if data.SUMMARY[0][x[0]]?
-                    $scope.metrics.push({title: x[1], value: data.SUMMARY[0][x[0]] + x[2]})
+                    value = data.SUMMARY[0][x[0]]
+                    if x[3]?
+                        value = x[3](value)
+                    $scope.metrics.push({title: x[1], value:  value + x[2]})
         restartSummaryTimer()
         return
 
