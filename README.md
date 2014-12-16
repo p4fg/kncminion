@@ -44,8 +44,22 @@ Pre-requisites (known working versions):
 * Grunt (v0.4.5+)
 * Bower (1.3.12+)
 
+```
+$ git clone https://github.com/p4fg/kncminion.git
+$ cd kncminion
+$ npm install -g grunt-cli
+$ npm install
+$ bower install
+$ grunt
+```
+
 After running grunt, a file called fake_titan.js is created in the repository root. 
 This file can be run under node and will act as a titan simulator, answering to the cgi-bin calls with faked data. 
+
+```
+> node fake_titan.js
+```
+
 It will also serve the static content and the required libraries.
 
 To enter the simulated environment, navigate to http://127.0.0.1:8080/build/www/pages/kncminion/
