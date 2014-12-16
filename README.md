@@ -1,4 +1,4 @@
-# KncMinion
+# KnCMinion
 
 KnC are in my opinion on the absolute frontline with regards to ASIC-development. 
 User-interface development are however not their (or any other manufacturer for that matter) main priority.
