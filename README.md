@@ -6,6 +6,8 @@ User-interface development are however not their (or any other manufacturer for 
 KnCMinion is my way of giving back to both KnC and the mining community. 
 This is a proof-of-concept drop-in extension for the status-interface on the KnC Titan.
 
+![screenshot](http://shellcode.se/wp-content/uploads/2014/12/light.png)
+
 KnCMinion is packaged and installed as a firmware-upgrade. The package only adds files to the webserver on your titan, so it will work with any existing firmware. It will not affect anything mining-related and will not overwrite any existing files.
 
 You should (of course) be very careful what you install on your titan, feel free to inspect the package before installing, it is a simple unix tar.gz.
