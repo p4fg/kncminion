@@ -8,7 +8,11 @@ This is a proof-of-concept drop-in extension for the status-interface on the KnC
 
 ![screenshot](http://shellcode.se/wp-content/uploads/2014/12/light.png)
 
-KnCMinion is packaged and installed as a firmware-upgrade. The package only adds files to the webserver on your titan, so it will work with any existing firmware. It will not affect anything mining-related and will not overwrite any existing files.
+KncMultiMinion is the latest addition to the package. It allows you to show a combined view of serveral titan-miners.
+
+![screenshotmultiminion](http://shellcode.se/wp-content/uploads/2015/02/multiminion.png)
+
+KnCMinion is packaged and installed as a firmware-upgrade. The package only adds files to the webserver on your titan, so it will work with any existing firmware. It will not affect anything mining-related. The upgrade will, however, alter a setting for the web-server on your titan, in order to allow access to /cgi-bin/bfgminer_procs.cgi without any authentication. This is needed for the KncMultiMinion-interface that aggregates statistics from all of your titans to one single page.
 
 You should (of course) be very careful what you install on your titan, feel free to inspect the package before installing, it is a simple unix tar.gz.
 
@@ -65,6 +69,8 @@ This file can be run under node and will act as a titan simulator, answering to 
 It will also serve the static content and the required libraries.
 
 To enter the simulated environment, navigate to http://127.0.0.1:8080/build/www/pages/kncminion/
+
+To add several simulated titans to the KncMultiMinon-interface, you can use 127.0.0.1:9001, 127.0.0.1:9002 and 127.0.0.1:9003.
 
 ## Credits
 Minion images from http://www.designbolts.com. Free for non-commercial use.
