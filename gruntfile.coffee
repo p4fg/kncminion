@@ -7,6 +7,7 @@ module.exports = (grunt) ->
             "js/app.js" : ["coffee/app.coffee"]
             "js/directives.js" : ["coffee/directives.coffee"]
             "js/minioncontroller.js" : ["coffee/minioncontroller.coffee"]
+            "js/multiminioncontroller.js" : ["coffee/multiminioncontroller.coffee"]
           }, 
           options:
             sourceMap: false
@@ -26,6 +27,7 @@ module.exports = (grunt) ->
             files: [
                 { expand: true, cwd: 'html/', src: [ '**'], dest: 'build/www/pages/kncminion/'}
                 { expand: true, cwd: 'images/', src: [ '**'], dest: 'build/www/pages/kncminion/images'}
+                { expand: true, cwd: 'build/www/pages/kncminion/lib/bootstrap', src: [ 'glyphicons*'], dest: 'build/www/pages/kncminion/lib/fonts'}
                 { expand: true, src: ['js/**'], dest: 'build/www/pages/kncminion/' }
                 { expand: true, cwd: 'scripts/cgi-bin/', src: [ '**'], dest: 'build/www/pages/cgi-bin' }
                 { expand: false, src: 'scripts/runme.sh', dest: 'firmwarebuild/files/runme.sh' }
@@ -33,6 +35,13 @@ module.exports = (grunt) ->
     }
 
     compressConfig = {
+        etc:
+            options: 
+                mode: 'tgz'
+                archive: 'firmwarebuild/files/etc.tgz'
+            expand: true,
+            cwd: 'config/'
+            src: ['**/*']
         www:
             options: 
                 mode: 'tgz'
@@ -106,5 +115,5 @@ module.exports = (grunt) ->
     )
 
 
-    taskList = ['clean','saveRevision', 'git-describe:tagname','coffee','bower','copy','replace:version', 'compress:www', 'compress:firmwarefile']
+    taskList = ['clean','saveRevision', 'git-describe:tagname','coffee','bower','copy','replace:version', 'compress:www', 'compress:etc', 'compress:firmwarefile']
     grunt.registerTask('default', taskList)

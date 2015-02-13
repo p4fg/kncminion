@@ -2,30 +2,42 @@
 <div class="container">
     <div class="row">
         <div class="col-md-3 noborder">
-            <span id="title">KnCMinion</span>
+            <span id="title">KnCMultiMinion</span>
         </div>
-        <div class="col-md-1 col-md-offset-8 noborder">
-            <div><img id="titleimage" data-ng-src="{{ titleimage }}"></div>
+        <div class="col-md-4 col-md-offset-5 noborder">
+            <div>
+                <span class="pull-right">
+                    <img id="titleimage" data-ng-src="{{ titleimage1 }}">
+                    <img id="titleimage" data-ng-src="{{ titleimage2 }}">
+                    <img id="titleimage" data-ng-src="{{ titleimage3 }}">
+                </span>
+            </div>
         </div>
     </div>
     <div class="row">
-        <div class="col-md-12 noborder">
+        <div class="col-md-9 noborder">
             <button data-ng-repeat="interval in intervals" data-ng-click="selectInterval(interval)" class="btn-interval btn btn-xs btn-default" data-ng-class="{'btn-primary active': interval.time == selectedInterval}">{{interval.text}}</button>
         </div>
+        <div class="col-md-3 noborder">
+            <div class="input-group input-group-sm">
+                <span class="input-group-addon add_new_host_text" id="sizing-addon3">Add</span>
+                <input type="text" class="form-control add_new_host_text" data-ng-model="newHost" placeholder="hostname/ip" aria-describedby="sizing-addon3" ng-enter="addNewHost()">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" data-ng-click="addNewHost()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+                </span>
+            </div>
+        </div>
     </div>
+
     <div class="row" data-ng-repeat="interval in intervals" data-ng-show="interval.time == selectedInterval">
-        <div class="col-md-9 noborder">
+        <div class="col-md-12 noborder">
             <d3-graph class="hashrate_graph" value="hashrate" counter="hashratetimestamp" duration="{{ interval.time }}" plotminmax plotcurrent interpolate="{{ selectedInterpolation }}"></d3-graph>        
         </div>
-        <div class="col-md-3 noborder">
-            <table class="metricstable">
-                <tr data-ng-repeat="metric in metrics"><td class="metrictitle">{{ metric.title }}</td><td class="metricvalue">{{ metric.value }}</td></tr>
-            </table>
-        </div>
-        <div data-ng-repeat="die in dies track by die.PGA" class="col-md-3 nopadding">
-            <div class="die_info">
-                <div class="die_id">{{ die.PGA }}</div>
-                <d3-graph class="die_hashrate_graph" value="die.MHS20s" counter="timestamp" duration="{{ interval.time }}" plotminmax plotcurrent interpolate="{{ selectedInterpolation }}"></d3-graph>
+        <div data-ng-repeat="titan in titans track by titan.id" class="col-md-3 nopadding">
+            <div class="titan_info">
+                <div class="titan_id">{{ titan.id }}</div>
+                <d3-graph class="titan_hashrate_graph" value="titan.hashrate" counter="titan.timestamp" duration="{{ interval.time }}" plotminmax plotcurrent interpolate="{{ selectedInterpolation }}"></d3-graph>
+                <div class="titan_remove" data-ng-hide="titan.id == 'localhost'" data-ng-click="removeTitan(titan.id)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></div>
             </div>
         </div>
     </div>
@@ -46,6 +58,7 @@
             </div>
         </div>
         <div class="col-md-1 noborder nopadding">
+
             <div class="styleselector">
                 <button data-ng-repeat="style in styles" data-ng-click="selectStyle(style)" class="btn-style pull-right btn btn-xs btn-default" data-ng-class="{'btn-primary active': style == selectedStyle}">{{ style }}</button>
             </div>
@@ -53,8 +66,8 @@
         <div class="col-md-2 noborder nopadding">
             <div class="styleselector">
                 <button class="btn-style pull-right btn btn-xs btn-default" data-ng-click="navigate('/')">Legacy</button>
-                <button class="btn-style pull-right btn btn-xs btn-default" data-ng-click="go('/multi')">Multi</button>
-                <button class="btn-style pull-right btn btn-xs btn-default btn-primary active">Single</button>
+                <button class="btn-style pull-right btn btn-xs btn-default btn-primary active">Multi</button>
+                <button class="btn-style pull-right btn btn-xs btn-default" data-ng-click="go('/')">Single</button>
             </div>
         </div>
     </div>

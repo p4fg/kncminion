@@ -6,10 +6,12 @@
 #
 # http://127.0.0.1:8080/build/www/pages/kncminion/#/
 #
+# It also simulates titans on port 9001,9002 and 9003 
+# to test multi-titan-monitoring
 
 fs = require("fs")
 host = "127.0.0.1"
-port = "8080"
+ports = [8080,9001,9002,9003]
 express = require("express")
 
 app = express()
@@ -107,6 +109,7 @@ bfgminer_summary = (request,response) ->
     response.send(JSON.stringify(data))
 
 bfgminer_procs = (request,response) ->
+    response.header("Access-Control-Allow-Origin", "*")
     data = {
         "STATUS": [
             {
@@ -161,4 +164,6 @@ app.get("/cgi-bin/fetch_mining_stat.cgi",fake_mining_stat)
 app.get("/cgi-bin/bfgminer_summary.cgi",bfgminer_summary)
 app.get("/cgi-bin/bfgminer_procs.cgi",bfgminer_procs)
 
-app.listen(port,host)
+for port in ports
+    console.log("Listening on port " + port)
+    app.listen(port,host)

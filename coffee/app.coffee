@@ -1,9 +1,10 @@
-angular.module('KncMinionApp', ['ngRoute', 'KncMinionApp.directives'])
+angular.module('KncMinionApp', ['ngRoute', 'ngCookies', 'KncMinionApp.directives'])
 
 
 .config(['$routeProvider', ($routeProvider) ->
   routeConfigs = [
     ['/','partials/main.html', minionController]
+    ['/multi','partials/multi.html', multiMinionController]
   ]
   for routeConfig in routeConfigs
     route = routeConfig[0]
@@ -16,7 +17,11 @@ angular.module('KncMinionApp', ['ngRoute', 'KncMinionApp.directives'])
   return
 ])
 
+#.config(['$httpProvider', ($httpProvider) ->
+#  delete $httpProvider.defaults.headers.common['X-Requested-With']
+#  return
+#])
+
 .run(['$rootScope', ($rootScope) ->
   return
 ])
-

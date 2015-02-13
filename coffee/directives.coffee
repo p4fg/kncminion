@@ -1,5 +1,16 @@
 module = angular.module("KncMinionApp.directives", [])
 
+module.directive('ngEnter', () ->
+    return (scope, element, attrs) ->
+        element.bind("keydown keypress", (event) ->
+            if event.which == 13
+                scope.$apply(() ->
+                    scope.$eval(attrs.ngEnter)
+                )
+                event.preventDefault()
+        )
+)
+
 module.directive('d3Graph', ['$window', '$interval', '$timeout', ($window, $interval, $timeout) ->
     return {
         restrict: 'EA'
@@ -31,7 +42,7 @@ module.directive('d3Graph', ['$window', '$interval', '$timeout', ($window, $inte
                     scope.lastValueUpdateCounter = scope.counter
                 
                 # Remove all datapoints that are too old
-                limit = new Date(Date.now() - scope.duration * 1000 * 2)
+                limit = new Date(Date.now() - (scope.duration+5) * 1000)
                 while scope.data[0]?.date < limit
                     scope.data.shift()
             
@@ -45,7 +56,7 @@ module.directive('d3Graph', ['$window', '$interval', '$timeout', ($window, $inte
                 rightMargin = if scope.plotCurrent then 50 else 0
 
                 millisecondsPerPixel = (scope.duration * 1000) / (width-rightMargin)
-                scope.updatefrequency = Math.max(250, millisecondsPerPixel * 2)
+                scope.updatefrequency = Math.max(500, millisecondsPerPixel * 2)
 
                 if scope.updateDataPromise?
                     # Clear old interval

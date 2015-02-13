@@ -1,4 +1,4 @@
-@minionController = ['$scope','$rootScope','$timeout','$interval', '$http', ($scope, $rootScope, $timeout, $interval, $http) ->
+@minionController = ['$scope','$rootScope','$timeout','$interval', '$http', '$location', ($scope, $rootScope, $timeout, $interval, $http, $location) ->
     
     
 
@@ -60,7 +60,7 @@
             minutes = "0" + minutes
         if (seconds < 10)
             seconds = "0" + seconds
-        time = hours+':'+minutes+':'+seconds
+        time = hours+'h '+minutes+'m '+seconds + "s"
         if days == 1
             time = days + " day " + time
         if days > 1
@@ -125,6 +125,13 @@
             i = "0" + i
         $scope.titleimage = "images/minion#{i}.png"
         return
+
+    $scope.go = (path) ->
+        $location.path(path)
+
+    $scope.navigate = (path) ->
+        window.location = path
+
 
     setupValues()
     fetchStatus()

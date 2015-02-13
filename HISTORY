@@ -1,0 +1,11 @@
+History
+=======
+
+0.4
+    Added MultiMinion - Possibility to monitor several titan-machines in one view
+    Added shortcut to return to the legacy-interface
+    Changed format for uptime-duration to make it more readable
+    Favicon added. (Created by "Bleh Blob" - Creative Commons License)
+
+0.3
+    First public release
